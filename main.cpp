@@ -1,5 +1,6 @@
 
 #include "input.hpp"
+#include "stdtrie.hpp"
 
 #include <exception>
 #include <iostream>
@@ -55,7 +56,7 @@ void runAllWordsMode(const InputData& data) {
 }
 
 int main(int argc, char* argv[]) {
-
+    std::cout << "hello?" << "\n";
     // Verify command-line arguments.
     if (argc != 3) {
         std::cerr << "Usage: " << argv[0]
@@ -81,6 +82,45 @@ int main(int argc, char* argv[]) {
             << " normalized words.\n";
 
         // TODO: Create both Trie objects.
+
+        TreeNode standard;
+        //standard.value = false;
+
+        std::string w = data.words[2];
+
+        insert(w, standard);
+
+        std::cout << "does 'is' exist? " << standard.child[8]->child[18]->value << "\n";
+
+        //std::cout << "value of index 4: " << standard.child[0]->value << "\n";
+        /*
+        w.erase(w.begin());
+        std::cout << "word after erasing: " << w << "\n";
+        int l = w.length();
+        std::cout << "length after erasing: " << l << "\n";
+
+        
+
+        if (standard.value == false)
+            std::cout << standard.value << "\n";
+        
+        if (standard.child[0] == NULL)
+            std::cout << "before: there's nothing there!\n";
+
+        TreeNode* child;
+        child->value = true;
+        standard.child[0] = child;
+
+        if (standard.child[0] == NULL)
+            std::cout << "after: there's nothing there!\n";
+
+        
+
+        std::cout << standard.child[0]->value << "\n";
+        */
+         
+
+
 
         // TODO: Insert every word into BOTH Tries.
         // TODO: Report construction operation counts.
