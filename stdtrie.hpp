@@ -1,4 +1,5 @@
-#ifndef STDTRIE_HPP
+
+++#ifndef STDTRIE_HPP
 #define STDTRIE_HPP
 
 #include <assert.h>
@@ -22,9 +23,11 @@ int char_to_index(char c);
 
     Can't work on the search function until insert is completed
 */
-void insert(std::string word, TreeNode& trie);
 
-void insert_helper(std::string word, TreeNode* trie);
+void insert(const std::string& word, TreeNode& trie);
+
+void insert_helper(const std::string& word, TreeNode* trie, std::size_t index);
+
 
 
 /*  TODO: move tester code from main and translate it

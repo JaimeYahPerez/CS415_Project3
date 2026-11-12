@@ -7,54 +7,42 @@ int char_to_index(char c) {
 }
 
 
-void insert(std::string word, TreeNode& trie) {
 
-    // assertion: word is of length greather than 0
-    assert(word.length() > 0);
-
-    //int index = word.length();
-
-    int position = char_to_index(word[0]);
-
-    if (trie.child[position] == nullptr) {
-        trie.child[position] = new TreeNode;
+void insert(const std::string& word, TreeNode& trie) {
+    if (word.empty()) {
+        return;
     }
 
-    word.erase(word.begin());
-
-    // if word's length is now empty, set the end of word value to true
-    if (word.length() == 0) 
-    {
-        trie.child[position]->value = true;
-    } 
-    else {insert_helper(word, trie.child[position]);} 
-
+    insert_helper(word, &trie, 0);
 }
 
-void insert_helper(std::string word, TreeNode* trie) {
+void insert_helper(const std::string& word, TreeNode* trie, std::size_t index) {
 
-    // base case: when length is 1, create TreeNode*
-    // and mark the end of word value to true
+    // Base case: reached the end of the word.
+    if (index == word.length()) {
+        trie->value = true;
+        return;
+    }
 
-    int position = char_to_index(word[0]);
+    // Find the character's position.
+    int position = char_to_index(word[index]);
 
+    // Validate the character.
+    if (position < 0 || position >= 26) {
+        throw std::invalid_argument(
+            "Word must contain only a-z"
+        );
+    }
+
+    // Create the child if it doesn't exist.
     if (trie->child[position] == nullptr) {
         trie->child[position] = new TreeNode;
     }
 
-    if (word.length() == 1) 
-    {
-        trie->child[position]->value = true;
-        return;
-    }
-
-    // else, delete the first character of the current word and continue forward
-
-    word.erase(word.begin());
-
-    insert_helper(word, trie->child[position]);
-
+    // Continue to the next character.
+    insert_helper(word, trie->child[position], index + 1);
 }
+
 
 
 void search(const std::string word) {
