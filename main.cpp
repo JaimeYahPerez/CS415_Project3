@@ -84,11 +84,14 @@ int main(int argc, char* argv[]) {
         // TODO: Create both Trie objects.
 
         TreeNode standard;
-
+        int std_ops = 1; // set to one for the creation of TreeNode Standard
+        int spc_ops = 0;
         for (const std::string& word : data.words) {
-            insert(word, standard);
+            insert(word, standard, std_ops, spc_ops);
         }
-
+        std::cout << "Time taken to build the standard Trie is " << std_ops + spc_ops << " operations ";
+        spc_ops++; // to account for the initial TreeNode being created
+        std::cout << "and space occupied by it is " << spc_ops * 26 << " pointer units.\n";
         //std::cout << "value of index 4: " << standard.child[0]->value << "\n";
         /*
         w.erase(w.begin());
