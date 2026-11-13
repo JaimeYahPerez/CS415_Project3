@@ -7,8 +7,11 @@
 #include <string>
 
 // Flag 1: accept queries until EOF or Ctrl-C.
-void runQueryMode() {
+void runQueryMode(TreeNode& trie) {
     std::string rawQuery;
+
+    int search_ops_trie = 0;
+    int autocomplete_ops_trie = 0;
 
     while (true) {
         std::cout << "Enter search string: " << std::flush;
@@ -27,11 +30,19 @@ void runQueryMode() {
         }
 
         // Temporary debug output.
-        std::cout << "Normalized query: " << query << '\n';
+        //std::cout << "Normalized query: " << query << '\n';
 
         // TODO: Search standard Trie.
+        search(query, trie, search_ops_trie);
+        std::cout << "Time taken to search in the standard Trie is " << search_ops_trie << " operations.\n";
+        search_ops_trie = 0; // reset for next while loop
+        
         // TODO: Display standard Trie autocomplete results.
         // TODO: Print standard Trie operation counts.
+        autocomplete(query, &trie, autocomplete_ops_trie);
+        std::cout<< "Time taken to find auto-complete results in the standard Trie is " << autocomplete_ops_trie << " opertions.\n";
+        autocomplete_ops_trie = 0; // reset for next loop
+       
 
         // TODO: Search BST-based Trie.
         // TODO: Display BST-based Trie autocomplete results.
@@ -84,6 +95,13 @@ int main(int argc, char* argv[]) {
         // TODO: Create both Trie objects.
 
         TreeNode standard;
+        // TreeNode bst;
+
+
+        // TODO: Insert every word into BOTH Tries.
+        // TODO: Report construction operation counts.
+        // TODO: Report space in pointer units.
+
         int std_ops = 1; // set to one for the creation of TreeNode Standard
         int spc_ops = 0;
         for (const std::string& word : data.words) {
@@ -92,43 +110,11 @@ int main(int argc, char* argv[]) {
         std::cout << "Time taken to build the standard Trie is " << std_ops + spc_ops << " operations ";
         spc_ops++; // to account for the initial TreeNode being created
         std::cout << "and space occupied by it is " << spc_ops * 26 << " pointer units.\n";
-        //std::cout << "value of index 4: " << standard.child[0]->value << "\n";
-        /*
-        w.erase(w.begin());
-        std::cout << "word after erasing: " << w << "\n";
-        int l = w.length();
-        std::cout << "length after erasing: " << l << "\n";
 
-        
-
-        if (standard.value == false)
-            std::cout << standard.value << "\n";
-        
-        if (standard.child[0] == NULL)
-            std::cout << "before: there's nothing there!\n";
-
-        TreeNode* child;
-        child->value = true;
-        standard.child[0] = child;
-
-        if (standard.child[0] == NULL)
-            std::cout << "after: there's nothing there!\n";
-
-        
-
-        std::cout << standard.child[0]->value << "\n";
-        */
-         
-
-
-
-        // TODO: Insert every word into BOTH Tries.
-        // TODO: Report construction operation counts.
-        // TODO: Report space in pointer units.
 
         // Execute the selected mode.
         if (flag == "1") {
-            runQueryMode();
+            runQueryMode(standard);
         }
         else {
             runAllWordsMode(data);
