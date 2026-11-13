@@ -26,8 +26,6 @@ int char_to_index(char c);
 
 void insert(const std::string& word, TreeNode& trie);
 
-void insert_helper(const std::string& word, TreeNode* trie, std::size_t index);
-
 
 
 /*  TODO: move tester code from main and translate it
