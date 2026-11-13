@@ -1,10 +1,13 @@
 
-++#ifndef STDTRIE_HPP
+#ifndef STDTRIE_HPP
 #define STDTRIE_HPP
 
+//#include <iostream>
 #include <assert.h>
 #include <vector>
 #include <string>
+#include <stdexcept>
+#include <iostream>
 
 struct TreeNode {
     bool value = false;
@@ -24,7 +27,7 @@ int char_to_index(char c);
     Can't work on the search function until insert is completed
 */
 
-void insert(const std::string& word, TreeNode& trie);
+void insert(const std::string& word, TreeNode& trie, int& t_ops, int& s_ops);
 
 
 
@@ -33,7 +36,10 @@ void insert(const std::string& word, TreeNode& trie);
 
     Can't work on the search function until insert is completed
 */
-void search(const std::string word);
+void search(const std::string word, TreeNode& trie, int& ops);
+void search_helper(const std::string word, TreeNode* trie, int index, int& count);
 
+void autocomplete(const std::string& word, TreeNode* trie, int& ops);
+void autocomplete_helper(TreeNode* trie, std::string& currentWord, std::vector<std::string>& results, int& ops);
 
 #endif
