@@ -27,7 +27,9 @@ int char_to_index(char c);
     Can't work on the search function until insert is completed
 */
 
+
 void insert(const std::string& word, TreeNode& trie, int& t_ops, int& s_ops);
+void insert_helper(const std::string& word, TreeNode* trie, std::size_t index, int& t_ops, int& s_ops);
 
 
 

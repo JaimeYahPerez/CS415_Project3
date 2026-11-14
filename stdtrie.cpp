@@ -8,23 +8,36 @@ int char_to_index(char c) {
 
 
 
-void insert(const std::string& word, TreeNode& trie) {
-    TreeNode* current = &trie;
+void insert(const std::string& word, TreeNode& trie, int& t_ops, int& s_ops) {
+    if (word.empty()) {
+        return;
+    }
+    
+    insert_helper(word, &trie, 0, t_ops, s_ops);
+    //std::cout << "Time taken to build the standard Trie is" << ops << "operations and space occupied by it is " << ops << "pointer units\n";
+}
 
-    for (char c : word) {
-        int position = char_to_index(c);
+void insert_helper(const std::string& word, TreeNode* trie, std::size_t index, int& t_ops, int& s_ops) {
 
-        if (position < 0 || position >= 26) {
-            throw std::invalid_argument(
-                "Word must contain only a-z"
-            );
-        }
+    // Base case: reached the end of the word.
+    if (index == word.length()) {
+        trie->value = true;
+        t_ops++;
+        return;
+    }
 
-        if (current->child[position] == nullptr) {
-            current->child[position] = new TreeNode;
-        }
+    // Find the character's position.
+    int position = char_to_index(word[index]);
 
-        current = current->child[position];
+    // Validate the character.
+    if (position < 0 || position >= 26) {
+        throw std::invalid_argument("Word must contain only a-z");
+    }
+
+    // Create the child if it doesn't exist.
+    if (trie->child[position] == nullptr) {
+        trie->child[position] = new TreeNode;
+        s_ops++;
     }
 
     // Continue to the next character.
