@@ -29,7 +29,7 @@ public:
 
     
 
-    // Construction measurements.
+    // Construction measurements
     std::uint64_t getBuildOperations() const;
     std::uint64_t getNodeCount() const;
     std::uint64_t getPointerUnits() const;
