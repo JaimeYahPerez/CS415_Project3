@@ -17,32 +17,50 @@ void insert(const std::string& word, TreeNode& trie, int& t_ops, int& s_ops) {
     //std::cout << "Time taken to build the standard Trie is" << ops << "operations and space occupied by it is " << ops << "pointer units\n";
 }
 
+
 void insert_helper(const std::string& word, TreeNode* trie, std::size_t index, int& t_ops, int& s_ops) {
 
-    // Base case: reached the end of the word.
+    // Reached the end of the word.
     if (index == word.length()) {
-        trie->value = true;
-        t_ops++;
+
+        ++t_ops; // Check word-ending marker
+
+        if (!trie->value) {
+            trie->value = true;
+            ++t_ops; // Update word-ending marker
+        }
+
         return;
     }
 
-    // Find the character's position.
     int position = char_to_index(word[index]);
 
-    // Validate the character.
     if (position < 0 || position >= 26) {
-        throw std::invalid_argument("Word must contain only a-z");
+        throw std::invalid_argument(
+            "Word must contain only a-z"
+        );
     }
 
-    // Create the child if it doesn't exist.
+    // Inspect the child-pointer position.
+    ++t_ops;
+
     if (trie->child[position] == nullptr) {
         trie->child[position] = new TreeNode;
-        s_ops++;
+
+        ++t_ops; // Create a new node
+        ++t_ops; // Assign a new child pointer
+        ++s_ops; // Count the additional node
     }
 
-    // Continue to the next character.
-    insert_helper(word, trie->child[position], index + 1, t_ops, s_ops);
+    insert_helper(
+        word,
+        trie->child[position],
+        index + 1,
+        t_ops,
+        s_ops
+    );
 }
+
 
 
 void search(const std::string word, TreeNode& trie, int& ops) {
