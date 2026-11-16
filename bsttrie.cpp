@@ -209,56 +209,44 @@ void BSTTrie::destroy(Node* node) {
 
 void BSTTrie::search(const std::string& word) {
 
-    // Reset counter for each search.
     searchOperations_ = 0;
 
     if (word.empty()) {
         return;
     }
 
-    // Validate input.
-    for (char c : word) {
-        if (c < 'a' || c > 'z') {
-            throw std::invalid_argument(
-                "BSTTrie expects normalized a-z words"
-            );
-        }
-    }
-
     Node* current = root_;
-    ++searchOperations_; // Initial pointer assignment
-
-    std::size_t index = 0;
+    int index = 0;
 
     while (current != nullptr) {
 
         char c = word[index];
 
-        // Compare against current BST node.
+        // Count the first comparison.
         ++searchOperations_;
 
         if (c < current->character) {
             current = current->left;
-            
+            continue;
         }
-        else if (c > current->character) {
+
+        // Count the second comparison.
+        ++searchOperations_;
+
+        if (c > current->character) {
             current = current->right;
-            
+            continue;
         }
-        else {
-            ++searchOperations_;
-            // Character matches.
-            ++index;
 
-            // Check if this is the final character.
-            if (index == word.size()) {
-                ++searchOperations_; // Check ending marker
-                return;
-            }
+        // Characters match.
+        ++index;
 
-            current = current->middle;
-            ++searchOperations_; // Pointer assignment
+        if (index == word.size()) {
+            ++searchOperations_; // Inspect word-ending marker.
+            return;
         }
+
+        current = current->middle;
     }
 }
 
