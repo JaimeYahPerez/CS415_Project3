@@ -79,18 +79,15 @@ void runAllWordsMode(const InputData& data, TreeNode& trie, BSTTrie& bst) {
     }
 
     // Print total operation counts.
-    std::cout << "Time taken to search all the strings in the standard Trie is "
-              << totalSearchOperationsTrie << " operations.\n";
+    std::cout << "Time taken to search all the strings in the standard Trie is " << totalSearchOperationsTrie << " operations.\n";
 
-    std::cout << "Time taken to search all the strings in the BST based Trie is "
-              << totalSearchOperationsBST << " operations.\n";
+    std::cout << "Time taken to search all the strings in the BST based Trie is " << totalSearchOperationsBST << " operations.\n";
 }
 
 int main(int argc, char* argv[]) {
     // Verify command-line arguments.
     if (argc != 3) {
-        std::cerr << "Usage: " << argv[0]
-            << " <input_file> <1|2>\n";
+        std::cerr << "Usage: " << argv[0] << " <input_file> <1|2>\n";
         return 1;
     }
 
@@ -106,10 +103,7 @@ int main(int argc, char* argv[]) {
         const InputData data = readInputFile(argv[1]);
 
         // Temporary diagnostic.
-        std::cout << "Read " << data.rawTokens
-            << " tokens; kept "
-            << data.words.size()
-            << " normalized words.\n";
+        std::cout << "Read " << data.rawTokens << " tokens; kept " << data.words.size() << " normalized words.\n";
 
         // Initialization of the Standard Trie and BST based Trie
 
@@ -132,23 +126,15 @@ int main(int argc, char* argv[]) {
         }
 
         // Print construction measurements.
-        std::cout << "Number of words: "
-            << data.words.size() << '\n';
+        std::cout << "Number of words: " << data.words.size() << '\n';
 
-        std::cout << "Time taken to build the standard Trie is "
-            << std_ops << " operations.\n";
+        std::cout << "Time taken to build the standard Trie is " << std_ops << " operations.\n";
 
-        std::cout << "Space occupied by the standard Trie is "
-            << (spc_ops + 1) * 26
-            << " pointer units.\n";
+        std::cout << "Space occupied by the standard Trie is " << (spc_ops + 1) * 26 << " pointer units.\n";
 
-        std::cout << "Time taken to build the BST based Trie is "
-            << bst.getBuildOperations()
-            << " operations.\n";
+        std::cout << "Time taken to build the BST based Trie is " << bst.getBuildOperations() << " operations.\n";
 
-        std::cout << "Space occupied by the BST based Trie is "
-            << bst.getPointerUnits()
-            << " pointer units.\n";
+        std::cout << "Space occupied by the BST based Trie is " << bst.getPointerUnits() << " pointer units.\n";
 
 
         // Execute the selected mode.

@@ -55,13 +55,7 @@ void insert_helper(const std::string& word, TreeNode* trie, std::size_t index, i
     }
 
     // Continue recursively with the next character.
-    insert_helper(
-        word,
-        trie->child[position],
-        index + 1,
-        t_ops,
-        s_ops
-    );
+    insert_helper( word, trie->child[position],index + 1, t_ops,s_ops);
 }
 
 
