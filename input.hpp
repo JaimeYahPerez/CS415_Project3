@@ -1,17 +1,18 @@
+#pragma once
 #ifndef INPUT_HPP
 #define INPUT_HPP
 
 #include <cstddef>
 #include <string>
 #include <vector>
+using namespace std;
 
 struct InputData {
-    std::vector<std::string> words;
-    std::size_t rawTokens = 0;
+    vector<string> words;
+    size_t rawTokens = 0;
 };
-
-std::string normalizeWord(const std::string& token);
-
-InputData readInputFile(const std::string& filename);
+string normalizeWord(const string& token);
+ 
+InputData readInputFile(const string& filename);
 
 #endif
