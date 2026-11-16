@@ -113,7 +113,7 @@ int main(int argc, char* argv[]) {
 
         // Initialization of the Standard Trie and BST based Trie
 
-// Create the two Tries.
+        // Create the two Tries.
         TreeNode standard;
         BSTTrie bst;
 
@@ -121,12 +121,12 @@ int main(int argc, char* argv[]) {
         int std_ops = 1; // Count the empty root node.
         int spc_ops = 0; // Additional nodes created.
 
-        // Build the standard Trie.
+        // Builds the standard Trie.
         for (const std::string& word : data.words) {
             insert(word, standard, std_ops, spc_ops);
         }
 
-        // Build the BST-based Trie.
+        // Builds    the BST-based Trie.
         for (const std::string& word : data.words) {
             bst.insert(word);
         }

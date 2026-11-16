@@ -7,11 +7,12 @@
 
 void BSTTrie::insert(const std::string& word) {
 
+    // Making sure to ignore empty words
     if (word.empty()) {
         return;
     }
 
-    // Validating if the char is valid
+    // Check that every character is a lowercase letter (a-z)
     for (char c : word) {
         if (c < 'a' || c > 'z') {
             throw std::invalid_argument(
@@ -19,15 +20,20 @@ void BSTTrie::insert(const std::string& word) {
             );
         }
     }
-    
+
+    // Store the path taken through the tree
     std::vector<Node**> path;
 
+    // Start at the root of the trie
     Node** link = &root_;
 
+    // Track the current character in the word
     std::size_t index = 0;
 
+    // Continue until every character has been processed
     while (index < word.size()) {
 
+        // Create a new node if the current position is empty
         if (*link == nullptr) {
 
             *link = new Node(word[index]);
@@ -35,19 +41,21 @@ void BSTTrie::insert(const std::string& word) {
             ++nodeCount_;
             ++buildOperations_;
             ++buildOperations_;
-
         }
 
+        // Get the current node
         Node* current = *link;
 
         ++buildOperations_;
 
+        // Move left if the character is smaller
         if (word[index] < current->character) {
-
+            
             path.push_back(link);
             link = &current->left;
 
         }
+        // Move right if the character is larger
         else if (word[index] > current->character) {
 
             ++buildOperations_;
@@ -56,11 +64,14 @@ void BSTTrie::insert(const std::string& word) {
             link = &current->right;
 
         }
+        // Move to the middle if the characters match
         else {
             ++buildOperations_;
 
+            // Move to the next character in the word
             ++index;
 
+            // If this is the last character, mark the word as complete
             if (index == word.size()) {
 
                 ++buildOperations_;
@@ -73,20 +84,8 @@ void BSTTrie::insert(const std::string& word) {
                 break;
             }
 
+            // Continue down the middle to insert the next character
             link = &current->middle;
-        }
-    }
-
-    // Balance all affected BST levels.
-    for (auto it = path.rbegin(); it != path.rend(); ++it) {
-
-        Node** subtreeLink = *it;
-
-        Node* updated = balance(*subtreeLink);
-
-        if (updated != *subtreeLink) {
-            *subtreeLink = updated;
-            ++buildOperations_;
         }
     }
 }

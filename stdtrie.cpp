@@ -1,11 +1,10 @@
 #include "stdtrie.hpp"
 
 
-
+// Our simple little helper function to get the index from a character
 int char_to_index(char c) {
     return c - 97;
 }
-
 
 
 void insert(const std::string& word, TreeNode& trie, int& t_ops, int& s_ops) {
