@@ -30,11 +30,11 @@ public:
     
 
     // Construction measurements
-    std::uint64_t getBuildOperations() const;
-    std::uint64_t getNodeCount() const;
-    std::uint64_t getPointerUnits() const;
-    std::uint64_t getSearchOperations() const;
-    std::uint64_t getAutocompleteOperations() const;
+    int getBuildOperations() const;
+    int getNodeCount() const;
+    int getPointerUnits() const;
+    int getSearchOperations() const;
+    int getAutocompleteOperations() const;
 
 
 
@@ -57,19 +57,19 @@ private:
 
     Node* root_ = nullptr;
 
-    std::uint64_t buildOperations_ = 0;
-    std::uint64_t nodeCount_ = 0;
-    std::uint64_t searchOperations_ = 0;
-    std::uint64_t autocompleteOperations_ = 0;
+    int buildOperations_ = 0;
+    int nodeCount_ = 0;
+    int searchOperations_ = 0;
+    int autocompleteOperations_ = 0;
 
     // Helper functions for AVL
     static int getHeight(Node* node);
     static int getBalanceFactor(Node* node);
     static void updateHeight(Node* node);
     
-    static Node* rotateLeft(Node* node);
-    static Node* rotateRight(Node* node);
-    static Node* balance(Node* node);
+    Node* rotateLeft(Node* node);
+    Node* rotateRight(Node* node);
+    Node* balance(Node* node);
 
     Node* findPrefix(Node* node, const std::string& prefix, std::size_t index);
 

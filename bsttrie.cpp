@@ -57,6 +57,7 @@ void BSTTrie::insert(const std::string& word) {
 
         }
         else {
+            ++buildOperations_;
 
             ++index;
 
@@ -124,6 +125,8 @@ BSTTrie::Node* BSTTrie::rotateRight(Node* node) {
 
     pivot->right = node;
     node->left = transfer;
+    buildOperations_ += 2;
+
 
     updateHeight(node);
     updateHeight(pivot);
@@ -137,6 +140,7 @@ BSTTrie::Node* BSTTrie::rotateLeft(Node* node) {
 
     pivot->left = node;
     node->right = transfer;
+    buildOperations_ += 2;
 
     updateHeight(node);
     updateHeight(pivot);
@@ -161,6 +165,7 @@ BSTTrie::Node* BSTTrie::balance(Node* node) {
         // Left-right case.
         if (getBalanceFactor(node->left) < 0) {
             node->left = rotateLeft(node->left);
+            ++buildOperations_;
         }
 
         // Left-left case.
@@ -173,6 +178,7 @@ BSTTrie::Node* BSTTrie::balance(Node* node) {
         // Right-left case.
         if (getBalanceFactor(node->right) > 0) {
             node->right = rotateRight(node->right);
+            ++buildOperations_;
         }
 
         // Right-right case.
@@ -233,13 +239,14 @@ void BSTTrie::search(const std::string& word) {
 
         if (c < current->character) {
             current = current->left;
-            ++searchOperations_; // Pointer assignment
+            
         }
         else if (c > current->character) {
             current = current->right;
-            ++searchOperations_; // Pointer assignment
+            
         }
         else {
+            ++searchOperations_;
             // Character matches.
             ++index;
 
@@ -255,11 +262,7 @@ void BSTTrie::search(const std::string& word) {
     }
 }
 
-BSTTrie::Node* BSTTrie::findPrefix(
-    Node* node,
-    const std::string& prefix,
-    std::size_t index
-) {
+BSTTrie::Node* BSTTrie::findPrefix( Node* node, const std::string& prefix,std::size_t index ) {
     // Count node visit.
     ++autocompleteOperations_;
 
@@ -298,10 +301,7 @@ BSTTrie::Node* BSTTrie::findPrefix(
     return findPrefix(node->middle, prefix, index + 1);
 }
 
-void BSTTrie::collectWords(
-    Node* node,
-    std::string& currentWord
-) {
+void BSTTrie::collectWords( Node* node,std::string& currentWord ) {
     // Count node visit.
     ++autocompleteOperations_;
 
@@ -374,23 +374,23 @@ void BSTTrie::autocomplete(const std::string& prefix) {
 
 // Recursively collect words in the BST level.
 
-std::uint64_t BSTTrie::getSearchOperations() const {
+int BSTTrie::getSearchOperations() const {
     return searchOperations_;
 }
 
 // Construction measurements
-std::uint64_t BSTTrie::getBuildOperations() const {
+int BSTTrie::getBuildOperations() const {
     return buildOperations_;
 }
 
-std::uint64_t BSTTrie::getNodeCount() const {
+int BSTTrie::getNodeCount() const {
     return nodeCount_;
 }
 
-std::uint64_t BSTTrie::getPointerUnits() const {
+int BSTTrie::getPointerUnits() const {
     return 3 * nodeCount_;
 }
 
-std::uint64_t BSTTrie::getAutocompleteOperations() const {
+int BSTTrie::getAutocompleteOperations() const {
     return autocompleteOperations_;
 }

@@ -17,32 +17,54 @@ void insert(const std::string& word, TreeNode& trie, int& t_ops, int& s_ops) {
     //std::cout << "Time taken to build the standard Trie is" << ops << "operations and space occupied by it is " << ops << "pointer units\n";
 }
 
+
 void insert_helper(const std::string& word, TreeNode* trie, std::size_t index, int& t_ops, int& s_ops) {
 
     // Base case: reached the end of the word.
     if (index == word.length()) {
-        trie->value = true;
-        t_ops++;
+
+        ++t_ops; // Inspect the word-ending marker.
+
+        if (!trie->value) {
+            trie->value = true;
+            ++t_ops; // Change marker to true.
+        }
+
         return;
     }
 
-    // Find the character's position.
+    // Determine the character's child position.
     int position = char_to_index(word[index]);
 
-    // Validate the character.
     if (position < 0 || position >= 26) {
-        throw std::invalid_argument("Word must contain only a-z");
+        throw std::invalid_argument(
+            "Word must contain only a-z"
+        );
     }
 
-    // Create the child if it doesn't exist.
+    // Count inspection of the child pointer.
+    ++t_ops;
+
+    // Create a node only when one does not exist.
     if (trie->child[position] == nullptr) {
+
         trie->child[position] = new TreeNode;
-        s_ops++;
+
+        ++t_ops; // Create a node.
+        ++t_ops; // Assign the child pointer.
+        ++s_ops; // Increment allocated-node count.
     }
 
-    // Continue to the next character.
-    insert_helper(word, trie->child[position], index + 1, t_ops, s_ops);
+    // Continue recursively with the next character.
+    insert_helper(
+        word,
+        trie->child[position],
+        index + 1,
+        t_ops,
+        s_ops
+    );
 }
+
 
 
 void search(const std::string word, TreeNode& trie, int& ops) {
