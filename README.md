@@ -11,7 +11,7 @@ Jamie:
 
 Jose: I worked on both the insert, search and autocomplete functions with stdtrie and bsttrie cpp files from the header file set-up from Jamie. Additionally, I helped modify functions in our main so that we'd be able to run our various and final verisons of the code.
 
-Using the explanations and assist using Jamie's prompts for setting up our code, I used the following websites to further understand the two data structures we were working to build and learning how to use double pointers properly:
+Using the explanations and assist using Jamie's prompts for setting up our code, I used the following websites to further understand the two data structures we were working to build and learning how to use double pointers properly: <br>
 https://cppreference.com/ <br>
 https://www.geeksforgeeks.org/dsa/trie-insert-and-search/ <br>
 https://www.geeksforgeeks.org/dsa/ternary-search-tree/
